@@ -25,11 +25,17 @@ if (port->type == PIPE) {
 		msg[i+4] = p->payload[i];
 	}
 	write(port->pipe_send_fd, msg, p->length+4);
-   printf("PACKET SEND, src=%d dst=%d p-src=%d p-dst=%d\n"); 
-//		(int) msg[0], 
-//		(int) msg[1], 
-//		(int) p->src, 
-//		(int) p->dst);
+  
+   /*
+printf("PACKET SEND, src=%d dst=%d len=%d p-src=%d p-dst=%d\n", 
+		(int) msg[0], 
+		(int) msg[1], 
+      (int) msg[3],
+		(int) p->src, 
+		(int) p->dst);
+printf("%s\n\n", p->payload);
+*/
+
 }
 
 return;
@@ -51,14 +57,19 @@ if (port->type == PIPE) {
 		for (i=0; i<p->length; i++) {
 			p->payload[i] = msg[i+4];
 		}
-      // Add a null terminating char at the end of the payload
-      // Then we can tell where the end of a packet is to be cleared
+      //BUG: null terminator needs to be added to avoid residual
+      //values from previous packet
       p->payload[i] = '\0';
-      printf("PACKET RECV, src=%d dst=%d p-src=%d p-dst=%d\n"); 
-//		(int) msg[0], 
-//		(int) msg[1], 
-//		(int) p->src, 
-//		(int) p->dst);
+
+      /*
+ printf("PACKET RECV, src=%d dst=%d len=%d p-src=%d p-dst=%d\n", 
+		(int) msg[0], 
+		(int) msg[1], 
+      (int) msg[3],
+		(int) p->src, 
+		(int) p->dst);
+printf("%s\n\n", p->payload);
+*/
 	}
 }
 

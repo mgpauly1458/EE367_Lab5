@@ -11,7 +11,9 @@
 #include "net.h"
 #include "man.h"
 #include "host.h"
+//include the switch.h file to call the switch host process
 #include "switch.h"
+
 
 void main()
 {
@@ -45,10 +47,11 @@ for (p_node = node_list; p_node != NULL; p_node = p_node->next) {
 		if (p_node->type == HOST) {  /* Execute host routine */
 			host_main(p_node->id);
 		}
+      //implement switch node: call the switch_main host routine in the child
 		else if (p_node->type = SWITCH) {
 			/* Execute switch routine, which you have to write */
-		   switch_main(p_node->id);
-      }
+         switch_main(p_node->id);
+		}
 		return;
 	}  
 }

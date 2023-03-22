@@ -1,5 +1,9 @@
-// Forward Table Structure
-struct fwd_table {
+/*
+ * switch.h
+ */
+
+// Forward Table Structure 
+struct fwd_table{
    int valid;
    int dst;
    int port;

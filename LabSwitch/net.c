@@ -457,17 +457,19 @@ else {
 	g_net_node =(struct net_node*) malloc(sizeof(struct net_node)*node_num);
 	for (i=0; i<node_num; i++) { 
 		fscanf(fp, " %c ", &node_type);
-      // If node is a host node
+
+      // Bug fix: node_type was = H instead of compared
 		if (node_type == 'H') {
 			fscanf(fp, " %d ", &node_id);
 			g_net_node[i].type = HOST;
 			g_net_node[i].id = node_id;
 		}
-      // If node is a switch node
-      else if (node_type == 'S') {
+      // Added switch node tye
+      else if(node_type == 'S'){
          fscanf(fp, " %d ", &node_id);
-         g_net_node[i].type = SWITCH;
-         g_net_node[i].id = node_id;
+			g_net_node[i].type = SWITCH;
+			g_net_node[i].id = node_id;
+
       }
 		else {
 			printf(" net.c: Unidentified Node Type\n");
@@ -525,8 +527,9 @@ for (i=0; i<g_net_node_num; i++) {
 	if (g_net_node[i].type == HOST) {
 	        printf("   Node %d HOST\n", g_net_node[i].id);
 	}
+   //implement switch nodes: provide parity with host nodes
 	else if (g_net_node[i].type == SWITCH) {
-		printf("   Node %d SWITCH\n", g_net_node[i].id);
+	        printf("   Node %d SWITCH\n", g_net_node[i].id);
 	}
 	else {
 		printf(" Unknown Type\n");
@@ -534,14 +537,14 @@ for (i=0; i<g_net_node_num; i++) {
 }
 printf("Links:\n");
 for (i=0; i<g_net_link_num; i++) {
-	if (g_net_link[i].type == PIPE) {
-		printf("   Link (%d, %d) PIPE\n", 
-				g_net_link[i].pipe_node0, 
-				g_net_link[i].pipe_node1);
-	}
-	else if (g_net_link[i].type == SOCKET) {
-		printf("   Socket: to be constructed (net.c)\n");
-	}
+      if (g_net_link[i].type == PIPE) {
+               printf("   Link (%d, %d) PIPE\n",
+                                 g_net_link[i].pipe_node0,
+                                             g_net_link[i].pipe_node1);
+                  }
+      else if (g_net_link[i].type == SOCKET) {
+            printf("Do socket\n");
+         }
 }
 
 fclose(fp);

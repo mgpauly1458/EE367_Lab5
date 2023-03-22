@@ -43,6 +43,8 @@ struct packet { /* struct for a packet */
 #define PKT_PING_REQ		0
 #define PKT_PING_REPLY		1
 #define PKT_FILE_UPLOAD_START	2
-#define PKT_FILE_UPLOAD_END   3
-#define PKT_FILE_DOWNLOAD  4
+#define PKT_FILE_UPLOAD_END	3
+// Added packet type for download requests
+#define PKT_FILE_DOWNLOAD     4
+
 
